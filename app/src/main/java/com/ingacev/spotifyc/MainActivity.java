@@ -1,12 +1,14 @@
 package com.ingacev.spotifyc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -16,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.ingacev.spotifyc.Models.podcastsList;
 import com.ingacev.spotifyc.Models.recommendedPodcast;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,24 +27,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private TextView trackHello;
     private RequestQueue mRequest;
     private ViewPager2 mRecyclerView;
+    private RecyclerView mRecyclerViewVertical;
     private SearchView searchView;
     private ArrayList<recommendedPodcast> recommendedCarouselList;
+    private ArrayList<podcastsList> podcastListVertical;
     private Adapter mAdapter;
+    private AdapterPodcastList mAdapterPodcastList;
 
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        searchView = findViewById(R.id.navSearch);
         mRecyclerView = findViewById(R.id.newPodcast);
+        mRecyclerViewVertical = findViewById(R.id.podcastVerticalList);
+        mRecyclerViewVertical.setHasFixedSize(true);
+        mRecyclerViewVertical.setLayoutManager(new LinearLayoutManager(this));
         mRequest = Volley.newRequestQueue(this);
         recommendedCarouselList = new ArrayList<>();
+        podcastListVertical = new ArrayList<>();
         getPodcasts();
+        initListener();
     }
 
     private void getPodcasts() {
@@ -60,11 +71,13 @@ public class MainActivity extends AppCompatActivity {
                                 String created_at = result.getString("created_at");
                                 String title = result.getString("title");
                                 String description = result.getString("description");
+                                String channel_style = result.getString("channel_style");
                                 String logo_image = result.getJSONObject("urls").getJSONObject("logo_image").getString("original");
                                 String banner_image = result.getJSONObject("urls").getJSONObject("banner_image").getString("original");
                                 String recommendation_position = result.getJSONObject("recommendation").getString("position");
 
                                 recommendedCarouselList.add(new recommendedPodcast(type, id, updated_at, created_at, title, description, logo_image, banner_image, recommendation_position));
+                                podcastListVertical.add(new podcastsList(type, id, updated_at, created_at, title, description, channel_style, logo_image, banner_image, recommendation_position));
                                 Collections.sort(recommendedCarouselList);
 
                             }
@@ -87,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                             //RECYCLERVIEW CARRUSEL
                             mRecyclerView.setPageTransformer(transformer);
 
+                            mAdapterPodcastList = new AdapterPodcastList(MainActivity.this, podcastListVertical);
+                            mRecyclerViewVertical.setAdapter(mAdapterPodcastList);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -98,5 +114,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mRequest.add(stringRequest);//EJECUTA LA PETICION REST A LA API
+    }
+    private void initListener(){
+        searchView.setOnQueryTextListener(MainActivity.this);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {//SE EJECUTA OPRIMIENDO EL ICONO SEACH DEL TECLADO
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {//SE EJEECUTA CADA QUE ESCRIBAMOS EMPIEZA A BUSCAR
+        mAdapterPodcastList.filter(newText);
+        return false;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 }

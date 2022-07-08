@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/drawable-v24/ic_download.xml" value="0.232" />
         <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/drawable/activity_splas_screen.xml" value="0.2985" />
-        <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/layout/podcast_carousel.xml" value="0.2" />
         <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/layout/podcast_vertical.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Alejandro Acevedo/AndroidStudioProjects/SpotifyC/app/src/main/res/mipmap-anydpi-v26/ic_spotify.xml" value="0.2985" />

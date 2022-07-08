@@ -11,5 +11,9 @@
     <color name="spotify_background_vwa">#191414</color>
 
 
+    <!--Spotify Colors    -->
+    <color name="blackSpotifyBackground">#191414</color>
+    <color name="greenSpotify">#1DB954</color>
+
 
 </resources>
