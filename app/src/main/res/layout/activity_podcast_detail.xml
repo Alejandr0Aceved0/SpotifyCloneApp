@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/linearBack"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/spotify_background_vwa"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/transparentSpotify"
+                android:src="@drawable/ic_back"
+                android:tint="@color/greenSpotify"
+                app:backgroundTint="@color/transparentSpotify"
+                app:rippleColor="@color/greenSpotify" />
+
+            <ImageView
+                android:id="@+id/bannerBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:alpha="110"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/logoPodcastDetail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="25dp"/>
+
+            <TextView
+                android:id="@+id/namePodcast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:gravity="center"
+                android:fontFamily="@font/titulos"
+                android:padding="20dp"
+                android:layout_marginTop="130dp"
+                android:text="namePodcast"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="bottom">
+
+                <TextView
+                    android:id="@+id/descriptionPodcast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/subtitulos"
+                    android:gravity="center|top|center_horizontal"
+                    android:justificationMode="inter_word"
+                    android:paddingTop="20dp"
+                    android:text="descriptionPodcast"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+            </ScrollView>
+        </FrameLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listDetailsPodcast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@color/spotify_background_vwa"
+            android:visibility="visible"/>
+
+      </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

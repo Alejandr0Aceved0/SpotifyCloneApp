@@ -1,5 +1,5 @@
 package com.ingacev.spotifyc;
 
 public class Constants {
-    public static String getApiSpotifyClone = "https://api.audioboom.com/channels/";
+    public static String getApiSpotifyChannels = "https://api.audioboom.com/channels/";
 }

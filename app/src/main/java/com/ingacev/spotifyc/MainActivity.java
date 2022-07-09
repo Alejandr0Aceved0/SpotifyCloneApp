@@ -1,10 +1,14 @@
 package com.ingacev.spotifyc;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +33,8 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    private TextView hello;
+    private TextView earlyText;
     private RequestQueue mRequest;
     private ViewPager2 mRecyclerView;
     private RecyclerView mRecyclerViewVertical;
@@ -39,10 +45,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private AdapterPodcastList mAdapterPodcastList;
 
 
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(api = Build.VERSION_CODES.P)
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        hello = findViewById(R.id.hello);
+        earlyText = findViewById(R.id.earlyPodcast);
         searchView = findViewById(R.id.navSearch);
         mRecyclerView = findViewById(R.id.newPodcast);
         mRecyclerViewVertical = findViewById(R.id.podcastVerticalList);
@@ -56,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private void getPodcasts() {
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, Constants.getApiSpotifyClone + "recommended", null,
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, Constants.getApiSpotifyChannels + "recommended", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -125,8 +135,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {//SE EJEECUTA CADA QUE ESCRIBAMOS EMPIEZA A BUSCAR
+    public boolean onQueryTextChange(String newText) {//SE EJECUTA CADA QUE ESCRIBAMOS EMPIEZA A BUSCAR
         mAdapterPodcastList.filter(newText);
+
+        if (newText.isEmpty()){
+            mRecyclerView.setVisibility(View.VISIBLE);
+            earlyText.setVisibility(View.VISIBLE);
+            hello.setVisibility(View.VISIBLE);
+        }else{
+            mRecyclerView.setVisibility(View.GONE);
+            earlyText.setVisibility(View.GONE);
+            hello.setVisibility(View.GONE);
+        }
         return false;
     }
 

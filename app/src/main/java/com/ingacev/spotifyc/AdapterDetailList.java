@@ -1,58 +1,64 @@
 package com.ingacev.spotifyc;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ingacev.spotifyc.Models.recommendedPodcast;
+import com.ingacev.spotifyc.Models.DetailListPodcast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-
+public class AdapterDetailList extends RecyclerView.Adapter<AdapterDetailList.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<recommendedPodcast> mListPodcast;
-    private OnItemClickListener mlistener;
-    private List<recommendedPodcast> podcastsItems;
+    private ArrayList<DetailListPodcast> mListDetail;
+    private AdapterPodcastList.OnItemClickListener mlistener;
+    private List<DetailListPodcast> detailItems;
+
+    public AdapterDetailList(Context context, ArrayList<DetailListPodcast> detailList){
+        mContext = context;
+        mListDetail = detailList;
+        this.detailItems = new ArrayList<>();
+        detailItems.addAll(mListDetail);
+    }
 
     public interface OnItemClickListener{
         void onItemClick(int position);
     }
-    public void setOnItemClickListener( OnItemClickListener listener ){
-        mlistener = listener;
-    }
-
-    public Adapter ( Context context, ArrayList<recommendedPodcast> recommendedPodcast){
-        mContext = context;
-        mListPodcast = recommendedPodcast;
-        this.podcastsItems = new ArrayList<recommendedPodcast>();
-        podcastsItems.addAll(mListPodcast);
-
-    }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.podcast_carousel, parent, false);
+        View v = LayoutInflater.from(mContext)
+                .inflate(R.layout.item_details, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        recommendedPodcast item = mListPodcast.get(position);
-        String image = item.getLogo_image();
-        Picasso.with(mContext).load(image).fit().centerInside().into(holder.imgvPhoto);
+
+        DetailListPodcast item = mListDetail.get(position);
+
+//        String id = item.getId();
+//        String episode_number = item.getEpisode_number();
+        String title = item.getTitle();
+//        String description = item.getDescription();
+//        String updated_at = item.getUpdated_at();
+        String profile_image = item.getProfile_image();
+//        String duration = item.getDuration();
+//        String plays = item.getPlays();
+//        String high_mp3 = item.getHigh_mp3();
+
+        holder.tittle.setText(title);
+        Picasso.with(mContext).load(profile_image).fit().centerInside().into(holder.logo);
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -72,17 +78,27 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mListPodcast.size();
+        return mListDetail.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         //inicialize tv
-        ImageView imgvPhoto;
+        TextView tittle;
+//        TextView channel_style;
+
+        //inicialize imgv
+        ImageView logo;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgvPhoto = itemView.findViewById(R.id.podcastLogo);
+
+            tittle = itemView.findViewById(R.id.titlePodcastItemDetailsTv);
+//            channel_style = itemView.findViewById(R.id.artistPodcast);
+
+            logo = itemView.findViewById(R.id.logoPodcasItemDetailsImv);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,4 +112,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             });
         }
     }
+
 }

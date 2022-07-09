@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:layout_margin="3dp"
+    android:background="@color/blackSpotifyBackground"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@color/blackSpotifyBackground">
+
+        <ImageView
+            android:id="@+id/logoPodcasItemDetailsImv"
+            android:src="@drawable/ic_spotify_logo"
+            android:layout_margin="5dp"
+            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titlePodcastItemDetailsTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titulos"
+            android:textStyle="bold"
+            android:paddingTop="5dp"
+            android:textSize="22dp"
+            android:textColor="@color/white"
+            android:text="itemTitle"/>
+
+        <TextView
+            android:id="@+id/artistPodcastItemDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/subtitulos"
+            android:textStyle=""
+            android:paddingTop="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/greenSpotify"
+            android:text="itemArtist"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_download">
+
+        </ImageView>
+    </LinearLayout>
+
+</LinearLayout>

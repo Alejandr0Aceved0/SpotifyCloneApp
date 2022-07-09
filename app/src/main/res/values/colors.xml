@@ -14,6 +14,7 @@
     <!--Spotify Colors    -->
     <color name="blackSpotifyBackground">#191414</color>
     <color name="greenSpotify">#1DB954</color>
+    <color name="transparentSpotify">#00000000</color>
 
 
 </resources>

@@ -1,0 +1,145 @@
+package com.ingacev.spotifyc;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ingacev.spotifyc.Models.podcastsList;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class AdapterPodcastList extends RecyclerView.Adapter<AdapterPodcastList.ViewHolder> {
+
+    private Context mContext;
+    private ArrayList<podcastsList> mListAnimes;
+    private OnItemClickListener mlistener;
+    private List<podcastsList> animesItems;
+
+    public AdapterPodcastList(Context context, ArrayList<podcastsList> animesList){
+        mContext = context;
+        mListAnimes = animesList;
+        this.animesItems = new ArrayList<>();
+        animesItems.addAll(mListAnimes);
+    }
+
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(mContext)
+                .inflate(R.layout.podcast_vertical, parent, false);
+        return new ViewHolder(v);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        podcastsList item = mListAnimes.get(position);
+        String title = item.getTitle();
+        String channel_style = item.getChannel_style();
+        String image = item.getLogo_image();
+
+        holder.podcastTitle.setText(title);
+        holder.channel_style.setText(channel_style);
+
+        Picasso.with(mContext).load(image).fit().centerInside().into(holder.animeImg);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), PodcastDetail.class);
+                intent.putExtra("itemDetail", item);
+                holder.itemView.getContext().startActivity(intent);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) holder.itemView.getContext(), (View)view, "appcard");
+                holder.itemView.getContext().startActivity(intent, options.toBundle());
+
+            }
+        });
+    }
+
+
+    @Override
+    public int getItemCount() {
+
+        return mListAnimes.size();
+    }
+
+    public void filter(String strSearch){
+        if (strSearch.length() ==0){
+            mListAnimes.clear();
+            mListAnimes.addAll(animesItems);
+        }else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                mListAnimes.clear();
+                List<podcastsList> collect = animesItems.stream()
+                        .filter(i -> i.getTitle().contains(strSearch))
+                        .collect(Collectors.toList());
+                mListAnimes.addAll(collect);
+            }else{
+                mListAnimes.clear();
+                for (podcastsList i : animesItems){
+                    if (i.getTitle().contains(strSearch)){
+                        mListAnimes.add(i);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        //inicialize tv
+        TextView podcastTitle;
+        TextView channel_style;
+        TextView animeSeason;
+        TextView animePopularity;
+        TextView animeStatus;
+        //inicialize imgv
+        ImageView animeImg;
+
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            podcastTitle = itemView.findViewById(R.id.titlePodcast);
+            channel_style = itemView.findViewById(R.id.artistPodcast);
+
+            animeImg = itemView.findViewById(R.id.logoPodcastV);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mlistener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            mlistener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+}
