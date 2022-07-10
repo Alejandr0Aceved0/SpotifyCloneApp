@@ -1,6 +1,6 @@
 package com.ingacev.spotifyc.Models;
 
-public class recommendedPodcast implements Comparable <recommendedPodcast>{
+public class RecommendedPodcast implements Comparable <RecommendedPodcast>{
 
     private String type;
     private String id;
@@ -12,7 +12,7 @@ public class recommendedPodcast implements Comparable <recommendedPodcast>{
     private String banner_image;
     private String recommendation_position;
 
-    public recommendedPodcast(String type, String id, String updated_at, String created_at, String title, String description, String logo_image, String banner_image, String recommendation_position) {
+    public RecommendedPodcast(String type, String id, String updated_at, String created_at, String title, String description, String logo_image, String banner_image, String recommendation_position) {
 
         this.type = type;
         this.id = id;
@@ -99,7 +99,7 @@ public class recommendedPodcast implements Comparable <recommendedPodcast>{
     }
 
     @Override
-    public int compareTo(recommendedPodcast recommendedPodcast) {
+    public int compareTo(RecommendedPodcast recommendedPodcast) {
         return 0;
     }
 }

@@ -2,7 +2,7 @@ package com.ingacev.spotifyc.Models;
 
 import java.io.Serializable;
 
-public class podcastsList implements Serializable {
+public class PodcastsList implements Serializable {
 
     private String type;
     private String id;
@@ -15,7 +15,7 @@ public class podcastsList implements Serializable {
     private String recommendation_position;
     private String channel_style;
 
-    public podcastsList(String type, String id, String updated_at, String created_at, String title, String description, String channel_style, String logo_image, String banner_image, String recommendation_position) {
+    public PodcastsList(String type, String id, String updated_at, String created_at, String title, String description, String channel_style, String logo_image, String banner_image, String recommendation_position) {
 
         this.type = type;
         this.id = id;

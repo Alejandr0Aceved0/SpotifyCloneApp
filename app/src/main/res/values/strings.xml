@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SpotifyC</string>
+    <string name="app_name">Spotify Clone</string>
+    <string name="agregado_recientemente">AGREGADO RECIENTEMENTE</string>
+    <string name="descubre_algo_nuevo_para_ti">Descubre algo nuevo para ti</string>
 </resources>

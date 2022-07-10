@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/linearItemViewPodcastDetail"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="125dp"
-    android:layout_margin="3dp"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="3dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     android:background="@color/blackSpotifyBackground"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="0.6"
         android:layout_marginLeft="5dp"
         android:orientation="vertical"
         android:layout_gravity="center"
@@ -27,51 +32,171 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="220dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_gravity="center"
         android:padding="5dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/titlePodcastItemDetailsTv"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+          <TextView
+            android:id="@+id/titlePodcastItemDetailsTv"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_weight="0.5"
             android:fontFamily="@font/titulos"
             android:textStyle="bold"
+            android:gravity="left"
+            android:layout_gravity="center"
             android:paddingTop="5dp"
-            android:textSize="22dp"
+            android:textSize="17dp"
             android:textColor="@color/white"
-            android:text="itemTitle"/>
+            android:text="itemTitle"/>}
 
-        <TextView
-            android:id="@+id/artistPodcastItemDetails"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/numCapitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/titulos"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:layout_gravity="center"
+                android:textSize="17dp"
+                android:textColor="@color/white"
+                android:text="00"/>
+
+        </LinearLayout>
+
+        playsPodcastItemDetails
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/subtitulos"
-            android:textStyle=""
-            android:paddingTop="5dp"
-            android:textSize="15dp"
-            android:textColor="@color/greenSpotify"
-            android:text="itemArtist"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/subtitulos"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textStyle=""
+                android:paddingTop="5dp"
+                android:textSize="12dp"
+                android:textColor="@color/greenSpotify"
+                android:text="Reproducciones:"/>
+
+            <TextView
+                android:id="@+id/playsPodcastItemDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/titulos"
+                android:textStyle="normal"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:text="00:00:00"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/spotify_background_vwa"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/subtitulos"
+                android:gravity="left"
+                android:layout_gravity="center"
+                android:textStyle=""
+                android:paddingTop="5dp"
+                android:textSize="12dp"
+                android:textColor="@color/greenSpotify"
+                android:text="Duración:"/>
+
+
+            <TextView
+                android:id="@+id/durationPodcastItemDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/titulos"
+                android:textStyle="normal"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:text="00:00:00"/>
+
+        </LinearLayout>}
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/spotify_background_vwa"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/subtitulos"
+                android:gravity="left"
+                android:layout_gravity="center"
+                android:paddingTop="5dp"
+                android:textSize="12dp"
+                android:textColor="@color/greenSpotify"
+                android:text="Ultima \n Actualizacion"/>
+
+
+            <TextView
+                android:id="@+id/updated_atPodcastItemDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:gravity="right"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/titulos"
+                android:textStyle="normal"
+
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:text="DD/MM/YY"/>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="0.3"
         android:gravity="center"
+        android:background="@color/blackSpotifyBackground"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+        <Button
+            android:id="@+id/btnPlayAndPause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
             android:layout_margin="5dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_download">
+            android:background="@drawable/ic_play_music">
 
-        </ImageView>
+        </Button>
     </LinearLayout>
 
 </LinearLayout>

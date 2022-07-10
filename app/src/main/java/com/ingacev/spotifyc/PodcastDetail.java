@@ -18,8 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ingacev.spotifyc.Models.DetailListPodcast;
-import com.ingacev.spotifyc.Models.podcastsList;
-import com.ingacev.spotifyc.Models.recommendedPodcast;
+import com.ingacev.spotifyc.Models.PodcastsList;
 import com.squareup.picasso.Picasso;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class PodcastDetail extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class PodcastDetail extends AppCompatActivity {
     private ImageView logoBack;
     private TextView titlePodcast;
     private TextView descriptionPodcast;
-    private podcastsList itemDetail;
+    private PodcastsList itemDetail;
     private String idPodcast;
     private RequestQueue mRequest;
     private FloatingActionButton fabButton;
@@ -50,7 +50,7 @@ public class PodcastDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podcast_detail);
-        itemDetail = (podcastsList) getIntent().getExtras().getSerializable("itemDetail");
+        itemDetail = (PodcastsList) getIntent().getExtras().getSerializable("itemDetail");
         titlePodcast = findViewById(R.id.namePodcast);
         bannerBack = findViewById(R.id.bannerBackground);
         logoBack = findViewById(R.id.logoPodcastDetail);
@@ -115,36 +115,21 @@ public class PodcastDetail extends AppCompatActivity {
                                     String title = result.getString("title");
                                     String description = result.getString("description");
                                     String updated_at = result.getString("updated_at");
+                                    String [] split = updated_at.split("T");
+                                    updated_at = split[0];
                                     String profile_image = result.getJSONObject("user").getJSONObject("urls").getString("image");//Caratula img
                                     String duration = result.getString("duration");
+                                    float durationParse = Float.parseFloat(duration);
+                                    int intParse = Math.round(durationParse);
+                                    intParse = intParse/60;
+                                    duration = (formatTime(intParse));
+
                                     String plays = result.getJSONObject("counts").getString("plays"); //CANTIDAD DE REPRODUCCIONES REALIZADAS
                                     String high_mp3 = result.getJSONObject("urls").getString("high_mp3"); //RUTA DE REPRODUCCION .mp3
 
                                     detailPodcastListChannels.add(new DetailListPodcast(id, episode_number, title, description, updated_at, profile_image, duration, plays, high_mp3));
 
-//
                                 }
-//
-//                                mAdapter = new Adapter(MainActivity.this, recommendedCarouselList);
-//                                mRecyclerView.setClipToPadding(false);
-//                                mRecyclerView.setClipChildren(false);
-//                                mRecyclerView.setOffscreenPageLimit(3);
-//                                mRecyclerView.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-//                                mRecyclerView.setAdapter(mAdapter);
-//                                CompositePageTransformer transformer = new CompositePageTransformer();
-//                                transformer.addTransformer(new MarginPageTransformer(80));
-//                                transformer.addTransformer(new ViewPager2.PageTransformer() {
-//                                    @Override
-//                                    public void transformPage(@NonNull View page, float position) {
-//                                        float v = 1 - Math.abs(position);
-//                                        page.setScaleY(0.85f + v * 0.15f);
-//                                    }
-//                                });
-                                //RECYCLERVIEW CARRUSEL
-//                                mRecyclerView.setPageTransformer(transformer);
-
-//                                mAdapterPodcastList = new AdapterPodcastList(MainActivity.this, podcastListVertical);
-//                                mRecyclerViewVertical.setAdapter(mAdapterPodcastList);
 
                                 mAdapterPodcastList = new AdapterDetailList(PodcastDetail.this, detailPodcastListChannels);
                                 mRecyclerViewlistDetailsPodcast.setAdapter(mAdapterPodcastList);
@@ -156,18 +141,21 @@ public class PodcastDetail extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("ANIMES FALLO :( ", "That didn't work! " + error);
+                    Log.e("APP FALLO :( ", "That didn't work! " + error);
                 }
             });
             mRequest.add(stringRequest);//EJECUTA LA PETICION REST A LA API
         }
-
-
-
-
     }
 
 
+    public String formatTime(int minutos) {
+        String formato = "%02d:%02d";
+        long horasReales = TimeUnit.MINUTES.toHours(minutos);
+        long minutosReales = TimeUnit.MINUTES.toMinutes(minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours(minutos));
+        String result = String.format(formato, horasReales, minutosReales);
+        return result;
+    }
 }
 
 

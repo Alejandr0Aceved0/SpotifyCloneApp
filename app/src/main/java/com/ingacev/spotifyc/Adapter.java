@@ -1,17 +1,18 @@
 package com.ingacev.spotifyc;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.ingacev.spotifyc.Models.recommendedPodcast;
+import com.ingacev.spotifyc.Models.RecommendedPodcast;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
     private Context mContext;
-    private ArrayList<recommendedPodcast> mListPodcast;
+    private ArrayList<RecommendedPodcast> mListPodcast;
     private OnItemClickListener mlistener;
-    private List<recommendedPodcast> podcastsItems;
+    private List<RecommendedPodcast> podcastsItems;
 
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -32,10 +33,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         mlistener = listener;
     }
 
-    public Adapter ( Context context, ArrayList<recommendedPodcast> recommendedPodcast){
+    public Adapter ( Context context, ArrayList<RecommendedPodcast> recommendedPodcast){
         mContext = context;
         mListPodcast = recommendedPodcast;
-        this.podcastsItems = new ArrayList<recommendedPodcast>();
+        this.podcastsItems = new ArrayList<RecommendedPodcast>();
         podcastsItems.addAll(mListPodcast);
 
     }
@@ -50,8 +51,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        recommendedPodcast item = mListPodcast.get(position);
+        RecommendedPodcast item = mListPodcast.get(position);
         String image = item.getLogo_image();
+
+        holder.viewNewPodcast.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_transition_up_down_layouts));
         Picasso.with(mContext).load(image).fit().centerInside().into(holder.imgvPhoto);
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +83,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         //inicialize tv
         ImageView imgvPhoto;
 
+        //CarrouselView
+        RoundedImageView viewNewPodcast;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgvPhoto = itemView.findViewById(R.id.podcastLogo);
+            viewNewPodcast = itemView.findViewById(R.id.podcastLogo);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

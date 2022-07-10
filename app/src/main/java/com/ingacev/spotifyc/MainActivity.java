@@ -22,8 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.ingacev.spotifyc.Models.podcastsList;
-import com.ingacev.spotifyc.Models.recommendedPodcast;
+import com.ingacev.spotifyc.Models.PodcastsList;
+import com.ingacev.spotifyc.Models.RecommendedPodcast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private ViewPager2 mRecyclerView;
     private RecyclerView mRecyclerViewVertical;
     private SearchView searchView;
-    private ArrayList<recommendedPodcast> recommendedCarouselList;
-    private ArrayList<podcastsList> podcastListVertical;
+    private ArrayList<RecommendedPodcast> recommendedCarouselList;
+    private ArrayList<PodcastsList> podcastListVertical;
     private Adapter mAdapter;
     private AdapterPodcastList mAdapterPodcastList;
 
@@ -86,13 +86,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                 String banner_image = result.getJSONObject("urls").getJSONObject("banner_image").getString("original");
                                 String recommendation_position = result.getJSONObject("recommendation").getString("position");
 
-                                recommendedCarouselList.add(new recommendedPodcast(type, id, updated_at, created_at, title, description, logo_image, banner_image, recommendation_position));
-                                podcastListVertical.add(new podcastsList(type, id, updated_at, created_at, title, description, channel_style, logo_image, banner_image, recommendation_position));
+                                recommendedCarouselList.add(new RecommendedPodcast(type, id, updated_at, created_at, title, description, logo_image, banner_image, recommendation_position));
+                                podcastListVertical.add(new PodcastsList(type, id, updated_at, created_at, title, description, channel_style, logo_image, banner_image, recommendation_position));
                                 Collections.sort(recommendedCarouselList);
 
                             }
 
                             mAdapter = new Adapter(MainActivity.this, recommendedCarouselList);
+
                             mRecyclerView.setClipToPadding(false);
                             mRecyclerView.setClipChildren(false);
                             mRecyclerView.setOffscreenPageLimit(3);
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("ANIMES FALLO :( ", "That didn't work! " + error);
+                Log.e("APP FALLO :( ", "That didn't work! " + error);
             }
         });
         mRequest.add(stringRequest);//EJECUTA LA PETICION REST A LA API

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/spotify_background_vwa"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -28,7 +29,7 @@
         android:gravity="center"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
-        android:text="Descubre algo nuevo para ti"
+        android:text="@string/descubre_algo_nuevo_para_ti"
         android:textColor="@android:color/white"
         android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@+id/navSearch"
@@ -79,12 +80,11 @@
         android:background="@color/spotify_background_vwa"
         android:fontFamily="@font/titulos"
         android:gravity="center"
-        android:text="AGREGADO RECIENTEMENTE"
+        android:text="@string/agregado_recientemente"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/divider3"
         app:layout_constraintTop_toBottomOf="@+id/divider2">
-        <!--        app:layout_constraintBottom_toTopOf="@id/animeList">-->
 
     </TextView>
     <View
@@ -97,8 +97,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/podcastVerticalList"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:paddingBottom="100dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="450dp"
         android:paddingTop="15dp"
         android:background="@color/spotify_background_vwa"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />

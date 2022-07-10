@@ -8,14 +8,16 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ingacev.spotifyc.Models.podcastsList;
+import com.ingacev.spotifyc.Models.PodcastsList;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,15 +27,15 @@ import java.util.stream.Collectors;
 public class AdapterPodcastList extends RecyclerView.Adapter<AdapterPodcastList.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<podcastsList> mListAnimes;
+    private ArrayList<PodcastsList> mListPodcast;
     private OnItemClickListener mlistener;
-    private List<podcastsList> animesItems;
+    private List<PodcastsList> podcastListItems;
 
-    public AdapterPodcastList(Context context, ArrayList<podcastsList> animesList){
+    public AdapterPodcastList(Context context, ArrayList<PodcastsList> podcastList){
         mContext = context;
-        mListAnimes = animesList;
-        this.animesItems = new ArrayList<>();
-        animesItems.addAll(mListAnimes);
+        mListPodcast = podcastList;
+        this.podcastListItems = new ArrayList<>();
+        podcastListItems.addAll(mListPodcast);
     }
 
 
@@ -53,15 +55,16 @@ public class AdapterPodcastList extends RecyclerView.Adapter<AdapterPodcastList.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        podcastsList item = mListAnimes.get(position);
+        PodcastsList item = mListPodcast.get(position);
         String title = item.getTitle();
         String channel_style = item.getChannel_style();
         String image = item.getLogo_image();
 
         holder.podcastTitle.setText(title);
         holder.channel_style.setText(channel_style);
+        holder.linearItemViewVerticalMain.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_transition_items));
 
-        Picasso.with(mContext).load(image).fit().centerInside().into(holder.animeImg);
+        Picasso.with(mContext).load(image).fit().centerInside().into(holder.logoPodcast);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,25 +85,25 @@ public class AdapterPodcastList extends RecyclerView.Adapter<AdapterPodcastList.
     @Override
     public int getItemCount() {
 
-        return mListAnimes.size();
+        return mListPodcast.size();
     }
 
     public void filter(String strSearch){
         if (strSearch.length() ==0){
-            mListAnimes.clear();
-            mListAnimes.addAll(animesItems);
+            mListPodcast.clear();
+            mListPodcast.addAll(podcastListItems);
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                mListAnimes.clear();
-                List<podcastsList> collect = animesItems.stream()
+                mListPodcast.clear();
+                List<PodcastsList> collect = podcastListItems.stream()
                         .filter(i -> i.getTitle().contains(strSearch))
                         .collect(Collectors.toList());
-                mListAnimes.addAll(collect);
+                mListPodcast.addAll(collect);
             }else{
-                mListAnimes.clear();
-                for (podcastsList i : animesItems){
+                mListPodcast.clear();
+                for (PodcastsList i : podcastListItems){
                     if (i.getTitle().contains(strSearch)){
-                        mListAnimes.add(i);
+                        mListPodcast.add(i);
                     }
                 }
             }
@@ -113,11 +116,12 @@ public class AdapterPodcastList extends RecyclerView.Adapter<AdapterPodcastList.
         //inicialize tv
         TextView podcastTitle;
         TextView channel_style;
-        TextView animeSeason;
-        TextView animePopularity;
-        TextView animeStatus;
+
         //inicialize imgv
-        ImageView animeImg;
+        ImageView logoPodcast;
+
+        //cv
+        LinearLayout linearItemViewVerticalMain;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -125,8 +129,8 @@ public class AdapterPodcastList extends RecyclerView.Adapter<AdapterPodcastList.
 
             podcastTitle = itemView.findViewById(R.id.titlePodcast);
             channel_style = itemView.findViewById(R.id.artistPodcast);
-
-            animeImg = itemView.findViewById(R.id.logoPodcastV);
+            logoPodcast = itemView.findViewById(R.id.logoPodcastV);
+            linearItemViewVerticalMain = itemView.findViewById(R.id.linearItemViewVerticalMain);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

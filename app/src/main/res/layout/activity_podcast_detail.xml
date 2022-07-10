@@ -33,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|top"
                 android:layout_margin="16dp"
-                android:backgroundTint="@color/transparentSpotify"
+                android:backgroundTint="@color/greenSpotify"
                 android:src="@drawable/ic_back"
-                android:tint="@color/greenSpotify"
+                android:tint="@color/teal_200"
                 app:backgroundTint="@color/transparentSpotify"
                 app:rippleColor="@color/greenSpotify" />
 

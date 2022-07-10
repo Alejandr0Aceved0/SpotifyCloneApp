@@ -24,7 +24,8 @@ public class DetailListPodcast implements Serializable {
         this.updated_at = updated_at;
         this.profile_image = profile_image;
         this.duration = duration;
-        this.plays = high_mp3;
+        this.plays = plays;
+        this.high_mp3 = high_mp3;
     }
 
     public String getId() {
