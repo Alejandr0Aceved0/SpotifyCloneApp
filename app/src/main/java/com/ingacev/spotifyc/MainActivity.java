@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private SearchView searchView;
     private ArrayList<RecommendedPodcast> recommendedCarouselList;
     private ArrayList<PodcastsList> podcastListVertical;
-    private Adapter mAdapter;
+    private AdapterRecommended mAdapterRecommended;
     private AdapterPodcastList mAdapterPodcastList;
 
 
@@ -92,13 +92,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                             }
 
-                            mAdapter = new Adapter(MainActivity.this, recommendedCarouselList);
+                            mAdapterRecommended = new AdapterRecommended(MainActivity.this, recommendedCarouselList);
 
                             mRecyclerView.setClipToPadding(false);
                             mRecyclerView.setClipChildren(false);
                             mRecyclerView.setOffscreenPageLimit(3);
                             mRecyclerView.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-                            mRecyclerView.setAdapter(mAdapter);
+                            mRecyclerView.setAdapter(mAdapterRecommended);
                             CompositePageTransformer transformer = new CompositePageTransformer();
                             transformer.addTransformer(new MarginPageTransformer(80));
                             transformer.addTransformer(new ViewPager2.PageTransformer() {

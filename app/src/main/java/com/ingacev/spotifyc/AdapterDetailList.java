@@ -3,12 +3,11 @@ package com.ingacev.spotifyc;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +29,8 @@ public class AdapterDetailList extends RecyclerView.Adapter<AdapterDetailList.Vi
     private ArrayList<DetailListPodcast> mListDetail;
     private AdapterPodcastList.OnItemClickListener mlistener;
     private List<DetailListPodcast> detailItems;
-
+    public  ViewHolder holderBefore;
+    MediaPlayer mediaPlayer = new MediaPlayer();
     public AdapterDetailList(Context context, ArrayList<DetailListPodcast> detailList){
         mContext = context;
         mListDetail = detailList;
@@ -70,36 +70,42 @@ public class AdapterDetailList extends RecyclerView.Adapter<AdapterDetailList.Vi
         holder.updated_at.setText(updated_at);
         holder.duration.setText(duration);
         holder.plays.setText(plays);
-
         holder.lyItemsPodcastList.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_transition_items));
         Picasso.with(mContext).load(profile_image).fit().centerInside().into(holder.logo);
         holder.btnPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 try {
-                    playerMusic(high_mp3);
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    if (mediaPlayer.isPlaying()){
+
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                        mediaPlayer = new MediaPlayer();
+                        holderBefore.btnPlayPause.setBackgroundResource(R.drawable.ic_play_music);
+                    }
+
+                    if (!mediaPlayer.isPlaying()){
+                        String url = high_mp3;
+                        holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause_music_disenabled);
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mediaPlayer.setDataSource(url);
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                        System.out.println("DURACION: " + mediaPlayer.getDuration());
+                        holderBefore = holder;
+                        holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause_music);
+
+                    }
+
+                }catch (Exception e){
+                    System.out.println("FALLA EN: "+ e);
                 }
             }
         });
+
     }
-
-    private void playerMusic(String high_mp3) throws IOException {
-        try {
-        String url = high_mp3;
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setDataSource(url);
-        mediaPlayer.prepare();
-        mediaPlayer.start();
-
-        }catch (Exception e){
-            System.out.println("FALLA EN: "+ e);
-        }
-    }
-
 
     @Override
     public int getItemCount() {

@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ingacev.spotifyc.Models.DetailListPodcast;
 import com.ingacev.spotifyc.Models.PodcastsList;
+import com.ingacev.spotifyc.Models.RecommendedPodcast;
 import com.squareup.picasso.Picasso;
 
 import androidx.appcompat.app.AppCompatActivity;
