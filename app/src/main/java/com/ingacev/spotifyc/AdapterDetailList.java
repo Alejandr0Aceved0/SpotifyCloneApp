@@ -88,11 +88,11 @@ public class AdapterDetailList extends RecyclerView.Adapter<AdapterDetailList.Vi
 
     private void playerMusic(String high_mp3) throws IOException {
         try {
-        String url = high_mp3; // your URL here
+        String url = high_mp3;
         MediaPlayer mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDataSource(url);
-        mediaPlayer.prepare(); // might take long! (for buffering, etc)
+        mediaPlayer.prepare();
         mediaPlayer.start();
 
         }catch (Exception e){

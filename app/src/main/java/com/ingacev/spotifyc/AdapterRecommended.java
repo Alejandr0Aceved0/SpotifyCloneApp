@@ -8,17 +8,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.ingacev.spotifyc.Models.RecommendedPodcast;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class AdapterRecommended extends RecyclerView.Adapter<AdapterRecommended.ViewHolder> {
 
 
     private Context mContext;
@@ -33,7 +31,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         mlistener = listener;
     }
 
-    public Adapter ( Context context, ArrayList<RecommendedPodcast> recommendedPodcast){
+    public AdapterRecommended(Context context, ArrayList<RecommendedPodcast> recommendedPodcast){
         mContext = context;
         mListPodcast = recommendedPodcast;
         this.podcastsItems = new ArrayList<RecommendedPodcast>();

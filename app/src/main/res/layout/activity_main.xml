@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blackSpotifyBackground"
+    android:orientation="vertical">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,8 +20,10 @@
         android:id="@+id/navSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="17sp"
         app:iconifiedByDefault="false"
-        app:queryHint="Buscar titulo"
+        android:hint="Buscar titulo"
+        android:textColorHint="@android:color/white"
         android:background="@color/cardview_dark_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/hello"/>
@@ -98,8 +106,8 @@
         android:id="@+id/podcastVerticalList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="450dp"
-        android:paddingTop="15dp"
         android:background="@color/spotify_background_vwa"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
